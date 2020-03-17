@@ -11,7 +11,12 @@ public abstract class PluginBasedJsonMarshal implements JsonMarshal {
     protected abstract @Nonnull Iterator<JsonMarshalPlugin> getPlugins();
 
     @Override
-    public void marshal(@Nonnull Object source, @Nonnull Class<?> sourceClass, @Nonnull JsonGeneratorHelper destination) {
+    public void marshal(
+            @Nonnull Object source,
+            @Nonnull Class<?> sourceClass,
+            @Nonnull JsonGeneratorHelper destination,
+            @Nullable JsonMarshalAnnotationSource annotationSource
+    ) {
         
         class Context extends StackContext implements JsonMarshalContext {
 

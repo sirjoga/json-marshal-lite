@@ -6,7 +6,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class JsonOptionalPlugin implements JsonMarshalPlugin {
+public class JsonOptionalMarshalPlugin implements JsonMarshalPlugin {
 
     @Override
     public boolean marshal(@Nonnull Object source, @Nonnull Class<?> sourceClass, @Nullable JsonMarshalAnnotationSource annotationSource, @Nonnull JsonMarshalContext context) {
