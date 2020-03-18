@@ -8,7 +8,8 @@ import java.util.*;
 public class StandardJsonMarshal extends PluginBasedJsonMarshal {
 
     private static final List<JsonMarshalPlugin> BEFORE = Arrays.asList(
-            new SimpleTypeMarshalPlugin(), new ArrayMarshalPlugin(), new JsonOptionalMarshalPlugin());
+            new SimpleTypeMarshalPlugin(), new ArrayMarshalPlugin(), new JsonOptionalMarshalPlugin(),
+            new EnumMarshalPlugin(new StandardEnumStringer(StandardEnumStringer.STANDARD_NAME_FUNCTION)));
     private static final List<JsonMarshalPlugin> AFTER = Collections.singletonList(
             new ObjectFieldMarshalPlugin(new ClassIteratorImpl()));
 

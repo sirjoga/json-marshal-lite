@@ -31,11 +31,14 @@ public class StandardJsonMarshalTest {
         Assertions.assertEquals(expected, writer.toString());
     }
 
+    enum E {EA, EB, EC}
+
     private static class A {
         int b;
         Double c;
         String d;
         boolean[] e;
+        E f;
         @JsonOptionalClass(String.class) JsonOptional<String> opt1;
         @JsonOptionalClass(String.class) JsonOptional<String> opt2;
         @JsonOptionalClass(String.class) JsonOptional<String> opt3;
@@ -47,10 +50,11 @@ public class StandardJsonMarshalTest {
         a.c = 2.2;
         a.d = "abc";
         a.e = new boolean[] { true, true, false};
+        a.f = E.EB;
         a.opt1 = new JsonOptional<>(null);
         a.opt3 = new JsonOptional<>("A");
         subj.marshal(a, helper);
-        closeAndAssertResult("{'b':1,'c':2.2,'d':'abc','e':[true,true,false],'opt1':null,'opt3':'A'}"
+        closeAndAssertResult("{'b':1,'c':2.2,'d':'abc','e':[true,true,false],'f':'EB','opt1':null,'opt3':'A'}"
                 .replace("'", "\""));
     }
 

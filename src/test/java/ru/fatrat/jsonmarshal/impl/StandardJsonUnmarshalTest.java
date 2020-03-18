@@ -27,9 +27,12 @@ public class StandardJsonUnmarshalTest {
         return ((JsonArray) reader.read()).get(0);
     }
 
+    enum E {EA, EB, EC}
+
     static class T {
         int a;
         String [] b;
+        E c;
         @JsonOptionalClass(String.class) JsonOptional<String> opt1;
         @JsonOptionalClass(String.class) JsonOptional<String> opt2;
     }
@@ -37,7 +40,7 @@ public class StandardJsonUnmarshalTest {
     @Test public void test() {
         Assertions.assertEquals((Integer) 1, subj.unmarshal(parse("1"), Integer.class));
         Assertions.assertEquals("a", subj.unmarshal(parse("\"a\""), String.class));
-        T t = subj.unmarshal(parse("{'a':1, 'b':['c','d'],'opt1':null,'opt2':'a'}".replace("'", "\"")), T.class);
+        T t = subj.unmarshal(parse("{'a':1, 'b':['c','d'],'c':'EB','opt1':null,'opt2':'a'}".replace("'", "\"")), T.class);
         Assertions.assertEquals(t.a, 1);
         Assertions.assertEquals(t.b.length, 2);
         Assertions.assertEquals(t.b[0], "c");

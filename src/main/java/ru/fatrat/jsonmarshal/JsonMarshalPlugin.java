@@ -9,6 +9,7 @@ public interface JsonMarshalPlugin extends JsonPlugin {
      * 
      * @param source object to be marshalled
      * @param sourceClass class of source object definition
+     * @param annotationSource optional annotations
      * @param context marshalling context 
      */
     void marshal(

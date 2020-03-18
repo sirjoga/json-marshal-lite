@@ -1,6 +1,5 @@
 package ru.fatrat.jsonmarshal.impl;
 
-import ru.fatrat.jsonmarshal.JsonMarshalPlugin;
 import ru.fatrat.jsonmarshal.JsonUnmarshalPlugin;
 
 import javax.annotation.Nonnull;
@@ -9,8 +8,9 @@ import java.util.*;
 public class StandardJsonUnmarshal extends PluginBasedJsonUnmarshal {
 
     private static final List<JsonUnmarshalPlugin> BEFORE = Arrays.asList(
-            new SimpleTypeUnmarshalPlugin(), new JsonOptionalUnmarshalPlugin(), new ArrayUnmarshalPlugin());
-    private static final List<JsonUnmarshalPlugin> AFTER = 
+            new SimpleTypeUnmarshalPlugin(), new JsonOptionalUnmarshalPlugin(), new ArrayUnmarshalPlugin(),
+            new EnumUnmarshalPlugin(new StandardEnumStringer(StandardEnumStringer.STANDARD_NAME_FUNCTION)));
+    private static final List<JsonUnmarshalPlugin> AFTER =
             Collections.singletonList(new ObjectFieldUnmarshalPlugin(new ClassIteratorImpl()));
     
     @Override
