@@ -1,19 +1,22 @@
 package ru.fatrat.jsonmarshal.impl;
 
-import ru.fatrat.jsonmarshal.JsonMarshalAnnotationSource;
-import ru.fatrat.jsonmarshal.JsonGeneratorHelper;
-import ru.fatrat.jsonmarshal.JsonMarshalPlugin;
-import ru.fatrat.jsonmarshal.JsonMarshalContext;
+import ru.fatrat.jsonmarshal.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.reflect.Array;
 
 public class ArrayMarshalPlugin implements JsonMarshalPlugin {
-    
+
+
     @Override
-    public boolean marshal(@Nonnull Object source, @Nonnull Class<?> sourceClass, @Nullable JsonMarshalAnnotationSource annotationSource, @Nonnull JsonMarshalContext context) {
-        if (!sourceClass.isArray()) return false;
+    public boolean canHandle(@Nonnull Class<?> cls) {
+        return cls.isArray();
+    }
+
+    @Override
+    public void marshal(@Nonnull Object source, @Nonnull Class<?> sourceClass, @Nullable JsonMarshalAnnotationSource annotationSource, @Nonnull JsonMarshalContext context) {
+        if (!sourceClass.isArray()) throw new JsonMarshalException("Cannot marshal non-array");
         Class<?> elementClass = sourceClass.getComponentType();
         JsonGeneratorHelper helper = context.getGeneratorHelper();
         helper.writeStartArray();
@@ -24,6 +27,5 @@ public class ArrayMarshalPlugin implements JsonMarshalPlugin {
             context.popElementId();
         }
         helper.writeEnd();
-        return true;
     }
 }

@@ -17,7 +17,7 @@ public class ObjectFieldMarshalPlugin implements JsonMarshalPlugin {
     }
 
     @Override
-    public boolean marshal(
+    public void marshal(
             @Nonnull Object source,
             @Nonnull Class<?> sourceClass,
             @Nullable JsonMarshalAnnotationSource annotationSource,
@@ -44,6 +44,10 @@ public class ObjectFieldMarshalPlugin implements JsonMarshalPlugin {
             context.popElementId();
         }
         helper.writeEnd();
+    }
+
+    @Override
+    public boolean canHandle(@Nonnull Class<?> cls) {
         return true;
     }
 }

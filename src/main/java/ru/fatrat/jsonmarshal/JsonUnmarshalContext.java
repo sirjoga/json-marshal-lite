@@ -5,9 +5,9 @@ import javax.annotation.Nullable;
 import javax.json.JsonValue;
 
 public interface JsonUnmarshalContext extends JsonMarshalStackContext {
-     <T> T callback(
+     @Nullable Object callback(
              @Nonnull JsonValue source,
-             @Nonnull Class<T> destClass,
+             @Nonnull Class<?> destClass,
              @Nullable JsonMarshalAnnotationSource annotationSource
      );
 }

@@ -9,11 +9,10 @@ import java.util.Optional;
 public class JsonOptionalMarshalPlugin implements JsonMarshalPlugin {
 
     @Override
-    public boolean marshal(@Nonnull Object source, @Nonnull Class<?> sourceClass, @Nullable JsonMarshalAnnotationSource annotationSource, @Nonnull JsonMarshalContext context) {
+    public void marshal(@Nonnull Object source, @Nonnull Class<?> sourceClass, @Nullable JsonMarshalAnnotationSource annotationSource, @Nonnull JsonMarshalContext context) {
         if (!JsonOptional.class.isAssignableFrom(sourceClass)) {
-            return false;
+            throw new JsonMarshalException("Cannot marshal non-optionals");
         }
-
 
         annotationSource = Optional.ofNullable(annotationSource).orElseThrow(
                 () -> new JsonMarshalException("Cannot use Optionals without annotation source"));
@@ -27,14 +26,16 @@ public class JsonOptionalMarshalPlugin implements JsonMarshalPlugin {
 
         @SuppressWarnings("unchecked")
         JsonOptional<Object> val = (JsonOptional<Object>) source;
-        if (!val.hasValue) {
-            helper.cancelName();
-        } else if (val.value == null) {
+        if (val.value == null) {
             helper.writeNull();
         } else {
             context.callback(val.value, oClass.value(), annotationSource);
         }
-        return true;
+    }
+
+    @Override
+    public boolean canHandle(@Nonnull Class<?> cls) {
+        return JsonOptional.class.isAssignableFrom(cls);
     }
 
 }

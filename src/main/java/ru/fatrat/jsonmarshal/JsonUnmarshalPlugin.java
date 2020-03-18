@@ -4,11 +4,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.json.JsonValue;
 
-public interface JsonUnmarshalPlugin {
+public interface JsonUnmarshalPlugin extends JsonPlugin {
 
-    /**
-     * Returns null if cannot unmarshal.
-     */
     @Nullable Object unmarshal(
             @Nonnull JsonValue source,
             @Nonnull Class<?> destClass,

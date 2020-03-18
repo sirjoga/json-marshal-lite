@@ -28,7 +28,9 @@ public abstract class PluginBasedJsonMarshal implements JsonMarshal {
                 Iterator<JsonMarshalPlugin> plugins = getPlugins();
                 while(plugins.hasNext()) {
                     JsonMarshalPlugin plugin = plugins.next();
-                    if (plugin.marshal(source, sourceClass, annotationSource, this)) return true;
+                    if (!plugin.canHandle(sourceClass)) continue;
+                    plugin.marshal(source, sourceClass, annotationSource, this);
+                    return true;
                 }
                 return false;
             }
@@ -53,7 +55,7 @@ public abstract class PluginBasedJsonMarshal implements JsonMarshal {
         }
         Context context = new Context();
         try {
-            context.marshal(source, sourceClass, null);
+            context.marshal(source, sourceClass, annotationSource);
         } catch (Exception e) {
             throw new JsonMarshalException(String.format("Marshal error, path %s", context.toString()), e);
         }

@@ -1,9 +1,6 @@
 package ru.fatrat.jsonmarshal.impl;
 
-import ru.fatrat.jsonmarshal.JsonMarshalAnnotationSource;
-import ru.fatrat.jsonmarshal.JsonGeneratorHelper;
-import ru.fatrat.jsonmarshal.JsonMarshalPlugin;
-import ru.fatrat.jsonmarshal.JsonMarshalContext;
+import ru.fatrat.jsonmarshal.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -12,28 +9,15 @@ import java.util.Map;
 
 public class SimpleTypeMarshalPlugin implements JsonMarshalPlugin {
     
-    private final Map<Class<?>, Class<?>> primitiveTypes;
-    
-    public SimpleTypeMarshalPlugin() {
-        primitiveTypes = new HashMap<>();
-        primitiveTypes.put(int.class, Integer.class);
-        primitiveTypes.put(float.class, Float.class);
-        primitiveTypes.put(double.class, Double.class);
-        primitiveTypes.put(long.class, Long.class);
-        primitiveTypes.put(short.class, Short.class);
-        primitiveTypes.put(byte.class, Byte.class);
-        primitiveTypes.put(boolean.class, Boolean.class);
-    }            
-
     @Override
-    public boolean marshal(
+    public void marshal(
             @Nonnull Object source, 
             @Nonnull Class<?> sourceClass, 
             @Nullable JsonMarshalAnnotationSource annotationSource,
             @Nonnull JsonMarshalContext context
     ) {
         JsonGeneratorHelper helper = context.getGeneratorHelper();
-        Class<?> primitiveWrapperClass = primitiveTypes.get(sourceClass);
+        Class<?> primitiveWrapperClass = SimpleTypes.primitiveTypeMap.get(sourceClass);
         if (primitiveWrapperClass != null) sourceClass = primitiveWrapperClass;
         
         boolean result = true;
@@ -54,8 +38,12 @@ public class SimpleTypeMarshalPlugin implements JsonMarshalPlugin {
         } else if (String.class.equals(sourceClass)) {
             helper.writeString((String) source);
         } else {
-            result = false;
+            throw new JsonMarshalException("Cannot marshal non-simple types");
         }
-        return result;
+    }
+
+    @Override
+    public boolean canHandle(@Nonnull Class<?> cls) {
+        return SimpleTypes.types.contains(cls);
     }
 }

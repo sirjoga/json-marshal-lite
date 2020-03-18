@@ -47,9 +47,8 @@ public class StandardJsonMarshalTest {
         a.c = 2.2;
         a.d = "abc";
         a.e = new boolean[] { true, true, false};
-        a.opt1 = new JsonOptional<>(null, true);
-        a.opt2 = new JsonOptional<>(null, false);
-        a.opt3 = new JsonOptional<>("A", true);
+        a.opt1 = new JsonOptional<>(null);
+        a.opt3 = new JsonOptional<>("A");
         subj.marshal(a, helper);
         closeAndAssertResult("{'b':1,'c':2.2,'d':'abc','e':[true,true,false],'opt1':null,'opt3':'A'}"
                 .replace("'", "\""));
