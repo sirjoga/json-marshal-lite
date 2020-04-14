@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import ru.fatrat.jsonmarshal.*;
 
 import javax.json.Json;
+import javax.json.JsonNumber;
+import javax.json.JsonValue;
 import javax.json.stream.JsonGenerator;
 import java.io.StringWriter;
 import java.util.HashMap;
@@ -46,6 +48,8 @@ public class StandardJsonMarshalTest {
         @JsonOptionalClass(String.class) JsonOptional<String> opt3;
         @JsonMap(Integer.class) Map<String, Integer> map;
         @JsonMap(asArray = Integer.class, value = Integer.class) Map<Integer, Integer> map1;
+
+        JsonValue rawValue;
     }
 
     @Test public void test() {
@@ -65,9 +69,12 @@ public class StandardJsonMarshalTest {
         a.map1.put(2,3);
         a.map1.put(4,5);
 
+        a.rawValue = Json.createObjectBuilder().add("a", 10).build().get("a");
+
+
         subj.marshal(a, helper);
         closeAndAssertResult(("{'b':1,'c':2.2,'d':'abc','e':[true,true,false],'f':'EB','ff':'E_C','opt1':null," +
-                "'opt3':'A','map':{'a':1},'map1':[[2,3],[4,5]]}")
+                "'opt3':'A','map':{'a':1},'map1':[[2,3],[4,5]],'rawValue':10}")
                 .replace("'", "\""));
     }
 

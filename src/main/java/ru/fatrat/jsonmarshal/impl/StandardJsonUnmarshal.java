@@ -13,7 +13,8 @@ public class StandardJsonUnmarshal extends PluginBasedJsonUnmarshal {
     public static final List<JsonUnmarshalPlugin> COMMON = Arrays.asList(
             new SimpleTypeUnmarshalPlugin(), new JsonOptionalUnmarshalPlugin(), new ArrayUnmarshalPlugin(),
             new EnumUnmarshalPlugin(new StandardEnumStringer(StandardEnumStringer.STANDARD_NAME_FUNCTION)),
-            new MapUnmarshalPlugin()
+            new MapUnmarshalPlugin(),
+            new RawValueUnmarshalPlugin()
     );
     private static final List<JsonUnmarshalPlugin> FIELD =
             Collections.singletonList(new ObjectFieldUnmarshalPlugin(new ClassFieldIteratorImpl()));

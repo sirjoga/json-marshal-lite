@@ -5,13 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.fatrat.jsonmarshal.*;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonReader;
-import javax.json.JsonValue;
-import javax.json.stream.JsonGenerator;
+import javax.json.*;
 import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.Map;
 
 public class StandardJsonUnmarshalTest {
@@ -39,13 +34,14 @@ public class StandardJsonUnmarshalTest {
         @JsonOptionalClass(String.class) JsonOptional<String> opt2;
         @JsonMap(Integer.class) Map<String, Integer> map;
         @JsonMap(asArray = Integer.class, value = Integer.class) Map<Integer, Integer> map1;
+        JsonValue rawValue;
     }
     
     @Test public void test() {
         Assertions.assertEquals((Integer) 1, subj.unmarshal(parse("1"), Integer.class));
         Assertions.assertEquals("a", subj.unmarshal(parse("\"a\""), String.class));
         T t = subj.unmarshal(parse(("{'a':1, 'b':['c','d'],'c':'EB','cc':'E_C','opt1':null,'opt2':'a'," +
-                "'map': {'a':1}, 'map1':[[1,2],[3,4]]}")
+                "'map': {'a':1}, 'map1':[[1,2],[3,4]], 'rawValue':10}")
                 .replace("'", "\"")), T.class);
         Assertions.assertEquals(t.a, 1);
         Assertions.assertEquals(t.b.length, 2);
@@ -54,6 +50,7 @@ public class StandardJsonUnmarshalTest {
         Assertions.assertNull(t.opt1.value);
         Assertions.assertEquals(t.c, E.EB);
         Assertions.assertEquals(t.cc, E.EC);
+        Assertions.assertEquals(((JsonNumber)t.rawValue).longValue(), 10L);
         Assertions.assertEquals(t.map.get("a"), 1);
         Assertions.assertEquals(t.map1.get(1), 2);
         Assertions.assertEquals(t.map1.get(3), 4);
