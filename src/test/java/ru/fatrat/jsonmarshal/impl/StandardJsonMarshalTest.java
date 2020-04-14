@@ -31,7 +31,7 @@ public class StandardJsonMarshalTest {
         Assertions.assertEquals(expected, writer.toString());
     }
 
-    enum E {EA, EB, EC}
+    enum E {EA, EB, @JsonName("E_C") EC}
 
     private static class A {
         int b;
@@ -39,6 +39,7 @@ public class StandardJsonMarshalTest {
         String d;
         boolean[] e;
         E f;
+        E ff;
 
         @JsonOptionalClass(String.class) JsonOptional<String> opt1;
         @JsonOptionalClass(String.class) JsonOptional<String> opt2;
@@ -54,6 +55,7 @@ public class StandardJsonMarshalTest {
         a.d = "abc";
         a.e = new boolean[] { true, true, false};
         a.f = E.EB;
+        a.ff = E.EC;
         a.opt1 = new JsonOptional<>(null);
         a.opt3 = new JsonOptional<>("A");
         a.map = new HashMap<>();
@@ -64,8 +66,8 @@ public class StandardJsonMarshalTest {
         a.map1.put(4,5);
 
         subj.marshal(a, helper);
-        closeAndAssertResult(("{'b':1,'c':2.2,'d':'abc','e':[true,true,false],'f':'EB','opt1':null,'opt3':'A'," +
-                "'map':{'a':1},'map1':[[2,3],[4,5]]}")
+        closeAndAssertResult(("{'b':1,'c':2.2,'d':'abc','e':[true,true,false],'f':'EB','ff':'E_C','opt1':null," +
+                "'opt3':'A','map':{'a':1},'map1':[[2,3],[4,5]]}")
                 .replace("'", "\""));
     }
 

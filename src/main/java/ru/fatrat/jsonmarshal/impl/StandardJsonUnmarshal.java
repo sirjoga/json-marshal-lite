@@ -12,9 +12,12 @@ public class StandardJsonUnmarshal extends PluginBasedJsonUnmarshal {
 
     public static final List<JsonUnmarshalPlugin> COMMON = Arrays.asList(
             new SimpleTypeUnmarshalPlugin(), new JsonOptionalUnmarshalPlugin(), new ArrayUnmarshalPlugin(),
-            new EnumUnmarshalPlugin(new StandardEnumStringer(StandardEnumStringer.STANDARD_NAME_FUNCTION)));
+            new EnumUnmarshalPlugin(new StandardEnumStringer(StandardEnumStringer.STANDARD_NAME_FUNCTION)),
+            new MapUnmarshalPlugin()
+    );
     private static final List<JsonUnmarshalPlugin> FIELD =
             Collections.singletonList(new ObjectFieldUnmarshalPlugin(new ClassFieldIteratorImpl()));
+
     private static final List<JsonUnmarshalPlugin> INTROSPECT =
             Collections.singletonList(new ObjectIntrospectorUnmarshalPlugin());
 
@@ -25,7 +28,8 @@ public class StandardJsonUnmarshal extends PluginBasedJsonUnmarshal {
     }
 
     public static JsonUnmarshal standardObjectFieldUnmarshal() {
-        return new StandardJsonUnmarshal(Stream.concat(COMMON.stream(), FIELD.stream()).collect(Collectors.toList()));
+        return new StandardJsonUnmarshal(Stream.concat(COMMON.stream(),
+                FIELD.stream()).collect(Collectors.toList()));
     }
 
     public static JsonUnmarshal standardObjectIntrospectorUnmarshal() {

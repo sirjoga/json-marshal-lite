@@ -10,8 +10,12 @@ import java.lang.annotation.Target;
 public @interface JsonMap {
     /**
      * if defined, map will be serialized/deserialized as Json array of [key,value] arrays.
-     * Object.class is "serialize as Json object" marker
+     * <p>Object.class is "serialize as Json object with String key" marker
      */
     Class<?> asArray() default Object.class;
+
+    /**
+     * Value class (required).
+     */
     Class<?> value();
 }

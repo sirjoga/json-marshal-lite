@@ -61,6 +61,6 @@ public class MapMarshalPlugin implements JsonMarshalPlugin {
 
     @Override
     public boolean canHandle(@Nonnull Class<?> cls) {
-        return Map.class.isAssignableFrom(cls);
+        return Map.class.equals(cls);
     }
 }

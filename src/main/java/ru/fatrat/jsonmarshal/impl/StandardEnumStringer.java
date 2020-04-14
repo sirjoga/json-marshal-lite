@@ -3,6 +3,7 @@ package ru.fatrat.jsonmarshal.impl;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import ru.fatrat.jsonmarshal.JsonMarshalException;
+import ru.fatrat.jsonmarshal.JsonName;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
@@ -12,7 +13,9 @@ import java.util.function.Function;
 public class StandardEnumStringer implements EnumStringer{
 
     public static final Function<Field, String> STANDARD_NAME_FUNCTION = field -> {
-        return field.getName();
+        JsonName jsonName = field.getAnnotation(JsonName.class);
+        if (jsonName == null) return field.getName();
+        return jsonName.value();
     };
 
     private final Function<Field, String> nameFunction;
