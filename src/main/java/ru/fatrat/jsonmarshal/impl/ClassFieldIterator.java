@@ -6,7 +6,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Iterator;
 
-public interface ClassIterator {
+public interface ClassFieldIterator {
     @Nonnull Iterator<Field> fields(@Nonnull Class<?> cls);
-    @Nullable <T extends Annotation> T getAnnotation(@Nonnull Class<?> cls, @Nonnull Class<T> annotationClass);
 }

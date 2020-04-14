@@ -19,23 +19,12 @@ public class ObjectIntrospectorMarshalPluginTest {
     private JsonGeneratorHelper helper;
     private JsonMarshal subj;
 
-    private static List<JsonMarshalPlugin> plugins = Arrays.asList(
-            new SimpleTypeMarshalPlugin(), new ArrayMarshalPlugin(), new JsonOptionalMarshalPlugin(),
-            new EnumMarshalPlugin(new StandardEnumStringer(StandardEnumStringer.STANDARD_NAME_FUNCTION)),
-            new ObjectIntrospectorMarshalPlugin()
-    );
-
     @BeforeEach
     public void beforeEach() {
         writer = new StringWriter();
         JsonGenerator generator = Json.createGenerator(writer);
         helper = new JsonGeneratorHelper(generator);
-        subj = new PluginBasedJsonMarshal() {
-            @Nonnull @Override
-            protected Iterator<JsonMarshalPlugin> getPlugins() {
-                return plugins.iterator();
-            }
-        };
+        subj = StandardJsonMarshal.standardObjectIntrospectorMarshal();
     }
 
     private void closeAndAssertResult(String expected) {

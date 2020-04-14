@@ -21,21 +21,8 @@ public class ObjectIntrospectorJsonUnmarshalTest {
     
     @BeforeEach
     public void beforeEach() {
-        subj = new PluginBasedJsonUnmarshal() {
-            @Nonnull
-            @Override
-            protected Iterator<JsonUnmarshalPlugin> getPlugins() {
-                return plugins.iterator();
-            }
-        };
+        subj = StandardJsonUnmarshal.standardObjectIntrospectorUnmarshal();
     }
-
-    private final static List<JsonUnmarshalPlugin> plugins = Arrays.asList(
-            new SimpleTypeUnmarshalPlugin(), new ArrayUnmarshalPlugin(), new JsonOptionalUnmarshalPlugin(),
-            new EnumUnmarshalPlugin(new StandardEnumStringer(StandardEnumStringer.STANDARD_NAME_FUNCTION)),
-            new ObjectIntrospectorUnmarshalPlugin()
-    );
-
 
     private JsonValue parse(String source) {
         JsonReader reader = Json.createReader(new StringReader("[" + source + "]"));

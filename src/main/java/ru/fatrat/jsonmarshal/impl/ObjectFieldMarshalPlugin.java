@@ -10,10 +10,10 @@ import java.util.function.Supplier;
 
 public class ObjectFieldMarshalPlugin implements JsonMarshalPlugin {
 
-    private final ClassIterator classIterator;
+    private final ClassFieldIterator classFieldIterator;
 
-    public ObjectFieldMarshalPlugin(@Nonnull ClassIterator classIterator) {
-        this.classIterator = classIterator;
+    public ObjectFieldMarshalPlugin(@Nonnull ClassFieldIterator classFieldIterator) {
+        this.classFieldIterator = classFieldIterator;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class ObjectFieldMarshalPlugin implements JsonMarshalPlugin {
             @Nullable JsonMarshalAnnotationSource annotationSource,
             @Nonnull JsonMarshalContext context
     ) {
-        Iterator<Field> fieldIterator = classIterator.fields(sourceClass);
+        Iterator<Field> fieldIterator = classFieldIterator.fields(sourceClass);
         JsonGeneratorHelper helper = context.getGeneratorHelper();
         helper.writeStartObject();
         while(fieldIterator.hasNext()) {

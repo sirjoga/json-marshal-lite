@@ -23,7 +23,7 @@ public class StandardJsonMarshalTest {
         writer = new StringWriter();
         JsonGenerator generator = Json.createGenerator(writer);
         helper = new JsonGeneratorHelper(generator);
-        subj = new StandardJsonMarshal();
+        subj = StandardJsonMarshal.standardObjectFieldMarshal();
     }
 
     private void closeAndAssertResult(String expected) {

@@ -4,7 +4,6 @@ import ru.fatrat.jsonmarshal.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.json.JsonArray;
 import javax.json.JsonException;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
@@ -15,10 +14,10 @@ import java.util.Iterator;
 
 public class ObjectFieldUnmarshalPlugin implements JsonUnmarshalPlugin {
 
-    private final ClassIterator classIterator;
+    private final ClassFieldIterator classFieldIterator;
     
-    public ObjectFieldUnmarshalPlugin(@Nonnull ClassIterator classIterator) {
-        this.classIterator = classIterator;
+    public ObjectFieldUnmarshalPlugin(@Nonnull ClassFieldIterator classFieldIterator) {
+        this.classFieldIterator = classFieldIterator;
     }
 
     @Override
@@ -32,7 +31,7 @@ public class ObjectFieldUnmarshalPlugin implements JsonUnmarshalPlugin {
         if (source == JsonValue.NULL) return null;
         if (!(source instanceof JsonObject)) throw new JsonMarshalException("Cannot unmarshal JSON as array");
         JsonObject object = (JsonObject) source;
-        Iterator<Field> fieldIterator = classIterator.fields(destClass);
+        Iterator<Field> fieldIterator = classFieldIterator.fields(destClass);
         Object result = createByType(destClass);        
         while(fieldIterator.hasNext()) {
             Field field = fieldIterator.next();

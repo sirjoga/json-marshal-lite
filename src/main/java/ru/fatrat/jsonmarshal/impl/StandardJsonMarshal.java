@@ -1,52 +1,41 @@
 package ru.fatrat.jsonmarshal.impl;
 
+import ru.fatrat.jsonmarshal.JsonMarshal;
 import ru.fatrat.jsonmarshal.JsonMarshalPlugin;
 
 import javax.annotation.Nonnull;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class StandardJsonMarshal extends PluginBasedJsonMarshal {
 
-    private static final List<JsonMarshalPlugin> BEFORE = Arrays.asList(
+    public static final List<JsonMarshalPlugin> COMMON = Arrays.asList(
             new SimpleTypeMarshalPlugin(), new ArrayMarshalPlugin(), new JsonOptionalMarshalPlugin(),
             new EnumMarshalPlugin(new StandardEnumStringer(StandardEnumStringer.STANDARD_NAME_FUNCTION)));
-    private static final List<JsonMarshalPlugin> AFTER = Collections.singletonList(
-            new ObjectFieldMarshalPlugin(new ClassIteratorImpl()));
+    public static final List<JsonMarshalPlugin> FIELD = Collections.singletonList(
+            new ObjectFieldMarshalPlugin(new ClassFieldIteratorImpl()));
+
+    public static final List<JsonMarshalPlugin> INTROSPECT = Collections.singletonList(
+            new ObjectIntrospectorMarshalPlugin());
+
+    private final List<JsonMarshalPlugin> plugins;
+
+    public StandardJsonMarshal(@Nonnull List<JsonMarshalPlugin> plugins) {
+        this.plugins = plugins;
+    }
+
+    public static JsonMarshal standardObjectFieldMarshal() {
+        return new StandardJsonMarshal(Stream.concat(COMMON.stream(), FIELD.stream()).collect(Collectors.toList()));
+    }
+
+    public static JsonMarshal standardObjectIntrospectorMarshal() {
+        return new StandardJsonMarshal(Stream.concat(COMMON.stream(), INTROSPECT.stream()).collect(Collectors.toList()));
+    }
 
     @Override
     @Nonnull
     final protected Iterator<JsonMarshalPlugin> getPlugins() {
-        List<JsonMarshalPlugin> before = new ArrayList<>(BEFORE);
-        List<JsonMarshalPlugin> after = new ArrayList<>(AFTER);
-        Iterator<JsonMarshalPlugin> custom = getCustomPlugins();
-        return new Iterator<JsonMarshalPlugin>() {
-            @Override
-            public boolean hasNext() {
-                return before.size() > 0 || custom.hasNext() || after.size() > 0;
-            }
-
-            @Override
-            public JsonMarshalPlugin next() {
-                if (before.size() > 0) return before.remove(0);
-                if (custom.hasNext()) return custom.next();
-                if (after.size() > 0) return after.remove(0);
-                throw new IllegalStateException();
-            }
-        };
+        return plugins.iterator();
     }
-
-    protected @Nonnull Iterator<JsonMarshalPlugin> getCustomPlugins() {
-        return new Iterator<JsonMarshalPlugin>() {
-            @Override
-            public boolean hasNext() {
-                return false;
-            }
-
-            @Override
-            public JsonMarshalPlugin next() {
-                throw new IllegalStateException();
-            }
-        };
-    }
-
 }
