@@ -3,14 +3,14 @@ package ru.fatrat.jsonmarshal.impl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.fatrat.jsonmarshal.JsonGeneratorHelper;
-import ru.fatrat.jsonmarshal.JsonMarshal;
-import ru.fatrat.jsonmarshal.JsonOptional;
-import ru.fatrat.jsonmarshal.JsonOptionalClass;
+import ru.fatrat.jsonmarshal.*;
 
 import javax.json.Json;
 import javax.json.stream.JsonGenerator;
 import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class StandardJsonMarshalTest {
 
@@ -39,9 +39,12 @@ public class StandardJsonMarshalTest {
         String d;
         boolean[] e;
         E f;
+
         @JsonOptionalClass(String.class) JsonOptional<String> opt1;
         @JsonOptionalClass(String.class) JsonOptional<String> opt2;
         @JsonOptionalClass(String.class) JsonOptional<String> opt3;
+        @JsonMap(Integer.class) Map<String, Integer> map;
+        @JsonMap(asArray = Integer.class, value = Integer.class) Map<Integer, Integer> map1;
     }
 
     @Test public void test() {
@@ -53,8 +56,16 @@ public class StandardJsonMarshalTest {
         a.f = E.EB;
         a.opt1 = new JsonOptional<>(null);
         a.opt3 = new JsonOptional<>("A");
+        a.map = new HashMap<>();
+        a.map.put("a", 1);
+
+        a.map1 = new LinkedHashMap<>();
+        a.map1.put(2,3);
+        a.map1.put(4,5);
+
         subj.marshal(a, helper);
-        closeAndAssertResult("{'b':1,'c':2.2,'d':'abc','e':[true,true,false],'f':'EB','opt1':null,'opt3':'A'}"
+        closeAndAssertResult(("{'b':1,'c':2.2,'d':'abc','e':[true,true,false],'f':'EB','opt1':null,'opt3':'A'," +
+                "'map':{'a':1},'map1':[[2,3],[4,5]]}")
                 .replace("'", "\""));
     }
 
