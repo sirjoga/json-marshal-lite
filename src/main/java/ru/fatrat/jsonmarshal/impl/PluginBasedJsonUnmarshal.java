@@ -14,7 +14,7 @@ public abstract class PluginBasedJsonUnmarshal implements JsonUnmarshal {
     @Override
     @Nullable public <T> T unmarshal(
             @Nonnull JsonValue source,
-            @Nonnull Class<?> destClass,
+            @Nonnull Class<T> destClass,
             @Nullable JsonMarshalAnnotationSource annotationSource
     ) {
         
