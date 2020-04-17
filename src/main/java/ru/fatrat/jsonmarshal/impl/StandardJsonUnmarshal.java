@@ -16,10 +16,10 @@ public class StandardJsonUnmarshal extends PluginBasedJsonUnmarshal {
             new MapUnmarshalPlugin(),
             new RawValueUnmarshalPlugin()
     );
-    private static final List<JsonUnmarshalPlugin> FIELD =
+    public static final List<JsonUnmarshalPlugin> FIELD =
             Collections.singletonList(new ObjectFieldUnmarshalPlugin(new ClassFieldIteratorImpl()));
 
-    private static final List<JsonUnmarshalPlugin> INTROSPECT =
+    public static final List<JsonUnmarshalPlugin> INTROSPECT =
             Collections.singletonList(new ObjectIntrospectorUnmarshalPlugin());
 
     private final List<JsonUnmarshalPlugin> plugins;
