@@ -28,12 +28,12 @@ public class StandardJsonUnmarshal extends PluginBasedJsonUnmarshal {
         this.plugins = plugins;
     }
 
-    public static JsonUnmarshal standardObjectFieldUnmarshal() {
+    @Nonnull public static JsonUnmarshal standardObjectFieldUnmarshal() {
         return new StandardJsonUnmarshal(Stream.concat(COMMON.stream(),
                 FIELD.stream()).collect(Collectors.toList()));
     }
 
-    public static JsonUnmarshal standardObjectIntrospectorUnmarshal() {
+    @Nonnull public static JsonUnmarshal standardObjectIntrospectorUnmarshal() {
         return new StandardJsonUnmarshal(Stream.concat(COMMON.stream(),
                 INTROSPECT.stream()).collect(Collectors.toList()));
     }
