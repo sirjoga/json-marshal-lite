@@ -1,6 +1,5 @@
 package ru.fatrat.jsonmarshal;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.fatrat.jsonmarshal.impl.StandardJsonMarshal;
 import ru.fatrat.jsonmarshal.impl.StandardJsonUnmarshal;

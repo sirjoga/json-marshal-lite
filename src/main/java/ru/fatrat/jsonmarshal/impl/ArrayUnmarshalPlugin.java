@@ -19,7 +19,6 @@ public class ArrayUnmarshalPlugin extends JsonClassUnmarshalPlugin {
     @Override
     public Object unmarshal(@Nonnull JsonValue source, @Nonnull Class<?> destClass, @Nullable JsonMarshalAnnotationSource annotationSource, @Nonnull JsonUnmarshalContext context) {
         if (!destClass.isArray()) throw new JsonMarshalException("Cannot marshal non-array");
-        if (source == JsonValue.NULL) return null;
         Class<?> elementClass = destClass.getComponentType();
         if (!(source instanceof JsonArray)) throw new JsonMarshalException("Cannot unmarshal JSON as array");
         JsonArray array = (JsonArray) source;

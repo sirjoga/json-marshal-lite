@@ -10,8 +10,10 @@ import javax.json.JsonNumber;
 import javax.json.JsonValue;
 import javax.json.stream.JsonGenerator;
 import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class StandardJsonMarshalTest {
@@ -49,6 +51,8 @@ public class StandardJsonMarshalTest {
         Map<String, Integer> map;
         Map<Integer, Integer> map1;
 
+        List<Integer> list;
+
         JsonValue rawValue;
     }
 
@@ -68,13 +72,14 @@ public class StandardJsonMarshalTest {
         a.map1 = new LinkedHashMap<>();
         a.map1.put(2,3);
         a.map1.put(4,5);
+        a.list = Arrays.asList(1, null, 2);
 
         a.rawValue = Json.createObjectBuilder().add("a", 10).build().get("a");
 
 
         subj.marshal(a, helper);
         closeAndAssertResult(("{'b':1,'c':2.2,'d':'abc','e':[true,true,false],'f':'EB','ff':'E_C','opt1':null," +
-                "'opt3':'A','map':{'a':1},'map1':[[2,3],[4,5]],'rawValue':10}")
+                "'opt3':'A','map':{'a':1},'map1':[[2,3],[4,5]],'list':[1,null,2],'rawValue':10}")
                 .replace("'", "\""));
     }
 

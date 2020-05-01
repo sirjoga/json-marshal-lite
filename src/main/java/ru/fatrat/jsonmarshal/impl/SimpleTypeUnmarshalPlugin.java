@@ -16,8 +16,6 @@ public class SimpleTypeUnmarshalPlugin extends JsonClassUnmarshalPlugin {
     @Nullable
     @Override
     public Object unmarshal(@Nonnull JsonValue source, @Nonnull Class<?> destClass, @Nullable JsonMarshalAnnotationSource annotationSource, @Nonnull JsonUnmarshalContext context) {
-        if (source == JsonValue.NULL) return null;
-        
         Class<?> primitiveWrapperClass = SimpleTypes.primitiveTypeMap.get(destClass);
         if (primitiveWrapperClass != null) destClass = primitiveWrapperClass;
 

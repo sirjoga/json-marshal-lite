@@ -7,6 +7,7 @@ import ru.fatrat.jsonmarshal.*;
 
 import javax.json.*;
 import java.io.StringReader;
+import java.util.List;
 import java.util.Map;
 
 public class StandardJsonUnmarshalTest {
@@ -35,13 +36,14 @@ public class StandardJsonUnmarshalTest {
         Map<String, Integer> map;
         Map<Integer, Integer> map1;
         JsonValue rawValue;
+        List<Integer> list;
     }
     
     @Test public void test() {
         Assertions.assertEquals((Integer) 1, subj.unmarshal(parse("1"), Integer.class));
         Assertions.assertEquals("a", subj.unmarshal(parse("\"a\""), String.class));
         T t = subj.unmarshal(parse(("{'a':1, 'b':['c','d'],'c':'EB','cc':'E_C','opt1':null,'opt2':'a'," +
-                "'map': {'a':1}, 'map1':[[1,2],[3,4]], 'rawValue':10}")
+                "'map': {'a':1}, 'map1':[[1,2],[3,4]], 'rawValue':10, 'list':[1,null,2]}")
                 .replace("'", "\"")), T.class);
         Assertions.assertEquals(t.a, 1);
         Assertions.assertEquals(t.b.length, 2);
@@ -55,6 +57,10 @@ public class StandardJsonUnmarshalTest {
         Assertions.assertEquals(t.map1.get(1), 2);
         Assertions.assertEquals(t.map1.get(3), 4);
         Assertions.assertEquals(t.opt2.value, "a");
+        Assertions.assertEquals(t.list.size(), 3);
+        Assertions.assertEquals(t.list.get(0), 1);
+        Assertions.assertNull(t.list.get(1));
+        Assertions.assertEquals(t.list.get(2), 2);
     }
 
 }

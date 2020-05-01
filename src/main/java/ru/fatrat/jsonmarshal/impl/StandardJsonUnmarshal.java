@@ -14,6 +14,7 @@ public class StandardJsonUnmarshal extends PluginBasedJsonUnmarshal {
             new SimpleTypeUnmarshalPlugin(), new JsonOptionalUnmarshalPlugin(), new ArrayUnmarshalPlugin(),
             new EnumUnmarshalPlugin(new StandardEnumStringer(StandardEnumStringer.STANDARD_NAME_FUNCTION)),
             new MapUnmarshalPlugin(),
+            new ListUnmarshalPlugin(),
             new RawValueUnmarshalPlugin()
     );
     public static final List<JsonUnmarshalPlugin> FIELD =

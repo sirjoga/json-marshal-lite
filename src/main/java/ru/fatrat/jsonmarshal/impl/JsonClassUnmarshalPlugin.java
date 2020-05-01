@@ -6,6 +6,7 @@ import ru.fatrat.jsonmarshal.JsonUnmarshalPlugin;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.json.Json;
 import javax.json.JsonValue;
 import java.lang.reflect.Type;
 
@@ -17,7 +18,7 @@ public abstract class JsonClassUnmarshalPlugin implements JsonUnmarshalPlugin {
             @Nonnull JsonValue source, @Nonnull Type destType,
             @Nullable JsonMarshalAnnotationSource annotationSource, @Nonnull JsonUnmarshalContext context
     ) {
-        return unmarshal(source, (Class<?>) destType, annotationSource, context);
+        return unmarshalJsonNullable(source, (Class<?>) destType, annotationSource, context);
     }
 
     @Override
@@ -26,6 +27,15 @@ public abstract class JsonClassUnmarshalPlugin implements JsonUnmarshalPlugin {
     }
 
     protected abstract boolean canHandle(@Nonnull Class<?> cls);
+
+    @Nullable
+    private Object unmarshalJsonNullable(
+            @Nonnull JsonValue source, @Nonnull Class<?> destClass,
+            @Nullable JsonMarshalAnnotationSource annotationSource, @Nonnull JsonUnmarshalContext context
+    ) {
+        if (source == JsonValue.NULL) return null;
+        return unmarshal(source, destClass, annotationSource, context);
+    }
 
     @Nullable
     protected abstract Object unmarshal(

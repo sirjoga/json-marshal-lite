@@ -15,6 +15,7 @@ public class StandardJsonMarshal extends PluginBasedJsonMarshal {
             new SimpleTypeMarshalPlugin(), new ArrayMarshalPlugin(), new JsonOptionalMarshalPlugin(),
             new EnumMarshalPlugin(new StandardEnumStringer(StandardEnumStringer.STANDARD_NAME_FUNCTION)),
             new MapMarshalPlugin(),
+            new ListMarshalPlugin(),
             new RawValueMarshalPlugin()
     );
     public static final List<JsonMarshalPlugin> FIELD = Collections.singletonList(
