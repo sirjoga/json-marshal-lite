@@ -63,4 +63,8 @@ public class MapUnmarshalPlugin implements JsonUnmarshalPlugin {
     public boolean canHandle(@Nonnull Type type) {
         return (type instanceof ParameterizedType) && ((ParameterizedType)type).getRawType() == Map.class;
     }
+
+    public static void main(String[] args) {
+    }
+
 }
