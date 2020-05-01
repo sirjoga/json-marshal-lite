@@ -3,13 +3,12 @@ package ru.fatrat.jsonmarshal.impl;
 import ru.fatrat.jsonmarshal.JsonMarshalAnnotationSource;
 import ru.fatrat.jsonmarshal.JsonMarshalException;
 import ru.fatrat.jsonmarshal.JsonUnmarshalContext;
-import ru.fatrat.jsonmarshal.JsonUnmarshalPlugin;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.json.JsonValue;
 
-public class RawValueUnmarshalPlugin implements JsonUnmarshalPlugin {
+public class RawValueUnmarshalPlugin extends JsonClassUnmarshalPlugin {
     @Nullable
     @Override
     public Object unmarshal(@Nonnull JsonValue source, @Nonnull Class<?> destClass, @Nullable JsonMarshalAnnotationSource annotationSource, @Nonnull JsonUnmarshalContext context) {

@@ -6,8 +6,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.reflect.Array;
 
-public class ArrayMarshalPlugin implements JsonMarshalPlugin {
-
+public class ArrayMarshalPlugin extends JsonClassMarshalPlugin {
 
     @Override
     public boolean canHandle(@Nonnull Class<?> cls) {
@@ -15,7 +14,10 @@ public class ArrayMarshalPlugin implements JsonMarshalPlugin {
     }
 
     @Override
-    public void marshal(@Nonnull Object source, @Nonnull Class<?> sourceClass, @Nullable JsonMarshalAnnotationSource annotationSource, @Nonnull JsonMarshalContext context) {
+    public void marshal(
+            @Nonnull Object source, @Nonnull Class<?> sourceClass,
+            @Nullable JsonMarshalAnnotationSource annotationSource, @Nonnull JsonMarshalContext context
+    ) {
         if (!sourceClass.isArray()) throw new JsonMarshalException("Cannot marshal non-array");
         Class<?> elementClass = sourceClass.getComponentType();
         JsonGeneratorHelper helper = context.getGeneratorHelper();

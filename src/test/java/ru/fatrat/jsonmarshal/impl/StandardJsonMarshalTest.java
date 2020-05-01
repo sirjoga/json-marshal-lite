@@ -43,11 +43,11 @@ public class StandardJsonMarshalTest {
         E f;
         E ff;
 
-        @JsonOptionalClass(String.class) JsonOptional<String> opt1;
-        @JsonOptionalClass(String.class) JsonOptional<String> opt2;
-        @JsonOptionalClass(String.class) JsonOptional<String> opt3;
-        @JsonMap(Integer.class) Map<String, Integer> map;
-        @JsonMap(asArray = Integer.class, value = Integer.class) Map<Integer, Integer> map1;
+        JsonOptional<String> opt1;
+        JsonOptional<String> opt2;
+        JsonOptional<String> opt3;
+        Map<String, Integer> map;
+        Map<Integer, Integer> map1;
 
         JsonValue rawValue;
     }

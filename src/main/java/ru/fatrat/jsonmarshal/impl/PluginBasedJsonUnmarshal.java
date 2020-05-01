@@ -5,6 +5,7 @@ import ru.fatrat.jsonmarshal.*;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.json.JsonValue;
+import java.lang.reflect.Type;
 import java.util.Iterator;
 
 public abstract class PluginBasedJsonUnmarshal implements JsonUnmarshal {
@@ -12,9 +13,9 @@ public abstract class PluginBasedJsonUnmarshal implements JsonUnmarshal {
     protected abstract @Nonnull Iterator<JsonUnmarshalPlugin> getPlugins();
 
     @Override
-    @Nullable public <T> T unmarshal(
+    @Nullable public Object unmarshal(
             @Nonnull JsonValue source,
-            @Nonnull Class<T> destClass,
+            @Nonnull Type destType,
             @Nullable JsonMarshalAnnotationSource annotationSource
     ) {
         
@@ -22,14 +23,14 @@ public abstract class PluginBasedJsonUnmarshal implements JsonUnmarshal {
 
             private @Nullable Object unmarshal(
                     @Nonnull JsonValue source,
-                    @Nonnull Class<?> destClass,
+                    @Nonnull Type destType,
                     @Nullable JsonMarshalAnnotationSource annotationSource
             ) {
                 Iterator<JsonUnmarshalPlugin> plugins = getPlugins();
                 while(plugins.hasNext()) {
                     JsonUnmarshalPlugin plugin = plugins.next();
-                    if (!plugin.canHandle(destClass)) continue;
-                    return plugin.unmarshal(source, destClass, annotationSource, this);
+                    if (!plugin.canHandle(destType)) continue;
+                    return plugin.unmarshal(source, destType, annotationSource, this);
                 }
                 throw new JsonMarshalException("No plugin can unmarshal");
             }
@@ -38,18 +39,16 @@ public abstract class PluginBasedJsonUnmarshal implements JsonUnmarshal {
             @Nullable
             public Object callback(
                     @Nonnull JsonValue source,
-                    @Nonnull Class<?> destClass,
+                    @Nonnull Type destType,
                     @Nullable JsonMarshalAnnotationSource annotationSource
             ) {
-                return unmarshal(source, destClass, annotationSource);
+                return unmarshal(source, destType, annotationSource);
             }
 
         }
         Context context = new Context();
         try {
-            @SuppressWarnings("unchecked")
-            T result = (T) context.unmarshal(source, destClass, annotationSource);
-            return result;
+            return context.unmarshal(source, destType, annotationSource);
         } catch (Exception e) {
             throw new JsonMarshalException(String.format("Unmarshal error, path %s", context.toString()), e);
         }

@@ -37,7 +37,7 @@ public class ObjectFieldUnmarshalPlugin extends AbstractObjectUnmarshalPlugin {
             context.pushObjectFieldElementId(fieldName);
             handledCallback.accept(fieldName);
             try {
-                field.set(dest, context.callback(jValue, field.getType(), annotationSource));
+                field.set(dest, context.callback(jValue, field.getGenericType(), annotationSource));
             } catch (IllegalAccessException e) {
                 throw new JsonMarshalException("Field set error", e);
             }

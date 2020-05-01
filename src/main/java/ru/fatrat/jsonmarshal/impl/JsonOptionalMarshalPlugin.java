@@ -4,23 +4,19 @@ import ru.fatrat.jsonmarshal.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Optional;
 
 public class JsonOptionalMarshalPlugin implements JsonMarshalPlugin {
 
     @Override
-    public void marshal(@Nonnull Object source, @Nonnull Class<?> sourceClass, @Nullable JsonMarshalAnnotationSource annotationSource, @Nonnull JsonMarshalContext context) {
-        if (!JsonOptional.class.isAssignableFrom(sourceClass)) {
-            throw new JsonMarshalException("Cannot marshal non-optionals");
-        }
+    public void marshal(@Nonnull Object source, @Nonnull Type sourceType, @Nullable JsonMarshalAnnotationSource annotationSource, @Nonnull JsonMarshalContext context) {
+
+        Type type = ((ParameterizedType) sourceType).getActualTypeArguments()[0];
 
         annotationSource = Optional.ofNullable(annotationSource).orElseThrow(
                 () -> new JsonMarshalException("Cannot use Optionals without annotation source"));
-
-        JsonOptionalClass oClass = Optional.ofNullable(annotationSource.getAnnotation(JsonOptionalClass.class))
-                .orElseThrow(() ->
-                        new JsonMarshalException("Cannot use Optionals without JsonOptionalClass annotation")
-                );
 
         JsonGeneratorHelper helper = context.getGeneratorHelper();
 
@@ -29,13 +25,13 @@ public class JsonOptionalMarshalPlugin implements JsonMarshalPlugin {
         if (val.value == null) {
             helper.writeNull();
         } else {
-            context.callback(val.value, oClass.value(), annotationSource);
+            context.callback(val.value, type, annotationSource);
         }
     }
 
     @Override
-    public boolean canHandle(@Nonnull Class<?> cls) {
-        return JsonOptional.class.isAssignableFrom(cls);
+    public boolean canHandle(@Nonnull Type type) {
+        return (type instanceof ParameterizedType) && ((ParameterizedType)type).getRawType() == JsonOptional.class;
     }
 
 }

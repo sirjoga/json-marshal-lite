@@ -8,7 +8,7 @@ import javax.json.JsonArray;
 import javax.json.JsonValue;
 import java.lang.reflect.Array;
 
-public class ArrayUnmarshalPlugin implements JsonUnmarshalPlugin {
+public class ArrayUnmarshalPlugin extends JsonClassUnmarshalPlugin {
 
     @Override
     public boolean canHandle(@Nonnull Class<?> cls) {

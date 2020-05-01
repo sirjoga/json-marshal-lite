@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.function.Supplier;
 
-public class ObjectFieldMarshalPlugin implements JsonMarshalPlugin {
+public class ObjectFieldMarshalPlugin extends JsonClassMarshalPlugin {
 
     private final ClassFieldIterator classFieldIterator;
 
@@ -40,7 +40,7 @@ public class ObjectFieldMarshalPlugin implements JsonMarshalPlugin {
             String fieldName = field.getName();
             context.pushObjectFieldElementId(fieldName);
             helper.setName(fieldName);
-            context.callback(value, field.getType(), field::getAnnotation);
+            context.callback(value, field.getGenericType(), field::getAnnotation);
             context.popElementId();
         }
         helper.writeEnd();

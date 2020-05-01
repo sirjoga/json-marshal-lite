@@ -4,6 +4,7 @@ import ru.fatrat.jsonmarshal.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.lang.reflect.Type;
 import java.util.Iterator;
 
 public abstract class PluginBasedJsonMarshal implements JsonMarshal {
@@ -13,7 +14,7 @@ public abstract class PluginBasedJsonMarshal implements JsonMarshal {
     @Override
     public void marshal(
             @Nonnull Object source,
-            @Nonnull Class<?> sourceClass,
+            @Nonnull Type sourceType,
             @Nonnull JsonGeneratorHelper destination,
             @Nullable JsonMarshalAnnotationSource annotationSource
     ) {
@@ -22,14 +23,14 @@ public abstract class PluginBasedJsonMarshal implements JsonMarshal {
 
             private boolean marshal(
                     @Nonnull Object source,
-                    @Nonnull Class<?> sourceClass,
+                    @Nonnull Type sourceType,
                     @Nullable JsonMarshalAnnotationSource annotationSource
             ) {
                 Iterator<JsonMarshalPlugin> plugins = getPlugins();
                 while(plugins.hasNext()) {
                     JsonMarshalPlugin plugin = plugins.next();
-                    if (!plugin.canHandle(sourceClass)) continue;
-                    plugin.marshal(source, sourceClass, annotationSource, this);
+                    if (!plugin.canHandle(sourceType)) continue;
+                    plugin.marshal(source, sourceType, annotationSource, this);
                     return true;
                 }
                 return false;
@@ -39,11 +40,11 @@ public abstract class PluginBasedJsonMarshal implements JsonMarshal {
             @Override
             public void callback(
                     @Nonnull Object source, 
-                    @Nonnull Class<?> sourceClass, 
+                    @Nonnull Type sourceType,
                     @Nullable JsonMarshalAnnotationSource annotationSource
             ) {
-                if (!marshal(source, sourceClass, annotationSource)) {
-                    throw new JsonMarshalException(String.format("Cannot marshal class %s", sourceClass.getName()));
+                if (!marshal(source, sourceType, annotationSource)) {
+                    throw new JsonMarshalException(String.format("Cannot marshal class %s", sourceType.getTypeName()));
                 }
             }
 
@@ -55,7 +56,7 @@ public abstract class PluginBasedJsonMarshal implements JsonMarshal {
         }
         Context context = new Context();
         try {
-            context.marshal(source, sourceClass, annotationSource);
+            context.marshal(source, sourceType, annotationSource);
         } catch (Exception e) {
             throw new JsonMarshalException(String.format("Marshal error, path %s", context.toString()), e);
         }

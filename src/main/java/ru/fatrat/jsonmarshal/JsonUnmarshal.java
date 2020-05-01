@@ -3,28 +3,30 @@ package ru.fatrat.jsonmarshal;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.json.JsonValue;
+import java.lang.reflect.Type;
 import java.util.Optional;
 
 public interface JsonUnmarshal {
 
-    @Nullable <T> T unmarshal(
+    @Nullable Object unmarshal(
             @Nonnull JsonValue source,
-            @Nonnull Class<T> destClass,
+            @Nonnull Type destType,
             @Nullable JsonMarshalAnnotationSource annotationSource
     );
 
-    @Nullable default <T> T unmarshal(
+    @SuppressWarnings("unchecked")
+    @Nullable default <T> T unmarshalNullable(
             @Nonnull JsonValue source,
-            @Nonnull Class<T> destClass
+            @Nonnull Class<T> destType
     ) {
-        return unmarshal(source, destClass, null);
+        return (T) unmarshal(source, destType, null);
     }
 
-    @Nonnull default <T> T unmarshalNonNull(
+    @Nonnull default <T> T unmarshal(
             @Nonnull JsonValue source,
             @Nonnull Class<T> destClass
     ) {
-        return Optional.ofNullable(unmarshal(source, destClass)).orElseThrow(() ->
+        return Optional.ofNullable(unmarshalNullable(source, destClass)).orElseThrow(() ->
                 new JsonMarshalException("Null unmarshal result"));
     }
 

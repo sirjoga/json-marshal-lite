@@ -48,7 +48,7 @@ public class ObjectIntrospectorMarshalPluginTest {
         private E f;
         public E getF() { return f; }
         private JsonOptional<String> opt1;
-        @JsonOptionalClass(String.class) public JsonOptional<String> getOpt1() {return opt1;}
+        public JsonOptional<String> getOpt1() {return opt1;}
 
     }
 

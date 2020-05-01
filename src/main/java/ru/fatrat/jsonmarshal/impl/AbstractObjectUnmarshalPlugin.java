@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
-public abstract class AbstractObjectUnmarshalPlugin implements JsonUnmarshalPlugin {
+public abstract class AbstractObjectUnmarshalPlugin extends JsonClassUnmarshalPlugin {
 
     protected final boolean isFieldRequired(@Nonnull JsonMarshalAnnotationSource annotationSource) {
         return annotationSource.getAnnotation(JsonRequired.class) != null;

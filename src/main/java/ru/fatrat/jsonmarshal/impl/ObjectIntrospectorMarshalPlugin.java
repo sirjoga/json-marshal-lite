@@ -10,8 +10,9 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 
-public class ObjectIntrospectorMarshalPlugin implements JsonMarshalPlugin {
+public class ObjectIntrospectorMarshalPlugin extends JsonClassMarshalPlugin {
 
     @Override public void marshal(
             @Nonnull Object source,
@@ -28,12 +29,12 @@ public class ObjectIntrospectorMarshalPlugin implements JsonMarshalPlugin {
                 Method method = descriptor.getReadMethod();
                 if (method == null) continue;
                 if (method.getDeclaringClass() == Object.class) continue;
-                Class<?> clz = descriptor.getPropertyType();
+                Type typ = descriptor.getReadMethod().getGenericReturnType();
                 Object value = method.invoke(source);
                 if (value == null) continue;
                 helper.setName(name);
                 context.pushObjectFieldElementId(name);
-                context.callback(value, clz, method::getAnnotation);
+                context.callback(value, typ, method::getAnnotation);
                 context.popElementId();
             }
             helper.writeEnd();

@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 import javax.json.JsonString;
 import javax.json.JsonValue;
 
-public class EnumUnmarshalPlugin implements JsonUnmarshalPlugin {
+public class EnumUnmarshalPlugin extends JsonClassUnmarshalPlugin {
 
     private final EnumStringer stringer;
 

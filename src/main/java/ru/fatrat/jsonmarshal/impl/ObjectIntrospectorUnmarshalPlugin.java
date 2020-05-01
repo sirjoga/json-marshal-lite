@@ -44,7 +44,7 @@ public class ObjectIntrospectorUnmarshalPlugin extends AbstractObjectUnmarshalPl
                 context.pushObjectFieldElementId(name);
                 handledCallback.accept(name);
                 try {
-                    writeMethod.invoke(dest, context.callback(jValue, descriptor.getPropertyType(),
+                    writeMethod.invoke(dest, context.callback(jValue, descriptor.getReadMethod().getGenericReturnType(),
                             annotationSource));
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     throw new JsonMarshalException("Field set error", e);

@@ -30,10 +30,10 @@ public class StandardJsonUnmarshalTest {
         String [] b;
         E c;
         E cc;
-        @JsonOptionalClass(String.class) JsonOptional<String> opt1;
-        @JsonOptionalClass(String.class) JsonOptional<String> opt2;
-        @JsonMap(Integer.class) Map<String, Integer> map;
-        @JsonMap(asArray = Integer.class, value = Integer.class) Map<Integer, Integer> map1;
+        JsonOptional<String> opt1;
+        JsonOptional<String> opt2;
+        Map<String, Integer> map;
+        Map<Integer, Integer> map1;
         JsonValue rawValue;
     }
     

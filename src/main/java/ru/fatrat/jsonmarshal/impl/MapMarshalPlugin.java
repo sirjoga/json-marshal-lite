@@ -4,23 +4,24 @@ import ru.fatrat.jsonmarshal.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Optional;
 
 public class MapMarshalPlugin implements JsonMarshalPlugin {
     @Override
-    public void marshal(@Nonnull Object source, @Nonnull Class<?> sourceClass,
+    public void marshal(@Nonnull Object source, @Nonnull Type sourceType,
                         @Nullable JsonMarshalAnnotationSource annotationSource,
                         @Nonnull JsonMarshalContext context) {
 
         JsonGeneratorHelper helper = context.getGeneratorHelper();
 
-        JsonMap annotation = Optional.ofNullable(annotationSource)
-                .map(src -> src.getAnnotation(JsonMap.class))
-                .orElse(null);
-        if (annotation == null) throw new JsonMarshalException("Cannot marshal map without JsonMap annotation");
-        Class<?> keyClass = annotation.asArray();
-        if (keyClass == Object.class) {
+        Type[] args = ((ParameterizedType) sourceType).getActualTypeArguments();
+        Type keyType = args[0];
+        Type valueType = args[1];
+
+        if (keyType == String.class) {
             @SuppressWarnings("unchecked")
             Map<String, Object> sourceMap = (Map<String, Object>) source;
             helper.writeStartObject();
@@ -30,7 +31,7 @@ public class MapMarshalPlugin implements JsonMarshalPlugin {
                if (value == null) {
                    helper.writeNull();
                } else {
-                   context.callback(value, annotation.value(), null);
+                   context.callback(value, valueType, null);
                }
                context.popElementId();
             });
@@ -45,12 +46,12 @@ public class MapMarshalPlugin implements JsonMarshalPlugin {
                 if (key == null) {
                     helper.writeNull();
                 } else {
-                    context.callback(key, keyClass, null);
+                    context.callback(key, keyType, null);
                 }
                 if (value == null) {
                     helper.writeNull();
                 } else {
-                    context.callback(value, annotation.value(), null);
+                    context.callback(value, valueType, null);
                 }
                 context.popElementId();
                 helper.writeEnd();
@@ -60,7 +61,7 @@ public class MapMarshalPlugin implements JsonMarshalPlugin {
     }
 
     @Override
-    public boolean canHandle(@Nonnull Class<?> cls) {
-        return Map.class.equals(cls);
+    public boolean canHandle(@Nonnull Type type) {
+        return (type instanceof ParameterizedType) && ((ParameterizedType)type).getRawType() == Map.class;
     }
 }

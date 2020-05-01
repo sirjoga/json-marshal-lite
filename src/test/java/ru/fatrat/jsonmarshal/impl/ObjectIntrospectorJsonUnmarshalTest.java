@@ -42,10 +42,10 @@ public class ObjectIntrospectorJsonUnmarshalTest {
         public E getC() { return c;}
         public void setC(E value) { c = value;}
         private JsonOptional<String> opt1;
-        @JsonOptionalClass(String.class) public JsonOptional<String> getOpt1() { return opt1;}
+        public JsonOptional<String> getOpt1() { return opt1;}
         public void setOpt1(JsonOptional<String> value) { opt1 = value; }
         private JsonOptional<String> opt2;
-        @JsonOptionalClass(String.class) public JsonOptional<String> getOpt2() { return opt2; }
+        public JsonOptional<String> getOpt2() { return opt2; }
         public void setOpt2(JsonOptional<String> value) { opt2 = value; }
         private boolean bool;
         public boolean isBool() { return bool;}
