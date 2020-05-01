@@ -12,7 +12,6 @@ import javax.json.JsonValue;
 import javax.json.stream.JsonGenerator;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -20,23 +19,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MapMarshalHelperTest {
 
-
     private JsonValue parse(String source) {
         JsonReader reader = Json.createReader(new StringReader("[" + source.replace("'", "\"") + "]"));
         return ((JsonArray) reader.read()).get(0);
     }
 
-    @BeforeEach
-    public void beforeEach() {
-    }
-
     @Test
     public void testUnmarshal() {
-        StringWriter writer;
-        JsonUnmarshal unmarshal;
-        writer = new StringWriter();
-        JsonGenerator generator = Json.createGenerator(writer);
-        unmarshal = StandardJsonUnmarshal.standardObjectFieldUnmarshal();
+        JsonUnmarshal unmarshal = StandardJsonUnmarshal.standardObjectFieldUnmarshal();
         Map<String, Integer> res = MapMarshalHelper.unmarshal(parse("{'a':1, 'b':2}"), unmarshal,
                 String.class, Integer.class);
         assertEquals(res.get("a"), 1);
@@ -45,14 +35,10 @@ class MapMarshalHelperTest {
 
     @Test
     public void testMarshal() {
-        StringWriter writer;
-        JsonGeneratorHelper helper;
-        JsonMarshal marshal;
-        JsonUnmarshal unmarshal;
-        writer = new StringWriter();
+        StringWriter writer = new StringWriter();
         JsonGenerator generator = Json.createGenerator(writer);
-        helper = new JsonGeneratorHelper(generator);
-        marshal = StandardJsonMarshal.standardObjectFieldMarshal();
+        JsonGeneratorHelper helper = new JsonGeneratorHelper(generator);
+        JsonMarshal marshal = StandardJsonMarshal.standardObjectFieldMarshal();
         Map<String, Integer> src = new LinkedHashMap<>();
         src.put("a", 1);
         src.put("b", 2);
