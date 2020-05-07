@@ -10,8 +10,11 @@ import javax.json.JsonValue;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public abstract class AbstractObjectUnmarshalPlugin extends JsonClassUnmarshalPlugin {
 
@@ -37,6 +40,14 @@ public abstract class AbstractObjectUnmarshalPlugin extends JsonClassUnmarshalPl
         Object result = createByType(destClass);
         Set<String> handled = new HashSet<>();
         unmarshalTo((JsonObject) source, destClass, result, handled::add, context);
+        if (Optional.ofNullable(annotationSource)
+                .map(aSource -> aSource.getAnnotation(JsonIgnoreGarbage.class)).orElse(null) == null) {
+            List<String> garbage = ((JsonObject) source).keySet().stream()
+                    .filter(key -> !handled.contains(key)).collect(Collectors.toList());
+            if (!garbage.isEmpty())
+                throw new JsonMarshalException(String.format("Garbage elements: [%s]",
+                        String.join(", ", garbage)));
+        }
         return result;
     }
 

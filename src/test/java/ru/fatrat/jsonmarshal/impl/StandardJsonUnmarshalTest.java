@@ -39,7 +39,21 @@ public class StandardJsonUnmarshalTest {
         JsonValue rawValue;
         List<Integer> list;
     }
-    
+
+    @JsonByFields
+    static class T1 {
+        int a;
+    }
+
+    @Test
+    public void testGarbage() {
+        subj.unmarshal(parse("{'a':1}".replace("'", "\"")), T1.class);
+        Assertions.assertThrows(JsonMarshalException.class, () -> {
+            subj.unmarshal(parse("{'a':1, 'b':2}".replace("'", "\"")), T1.class);
+        });
+        subj.unmarshalIgnoreGarbage(parse("{'a':1, 'b':2}".replace("'", "\"")), T1.class);
+    }
+
     @Test public void test() {
         Assertions.assertEquals((Integer) 1, subj.unmarshal(parse("1"), Integer.class));
         Assertions.assertEquals("a", subj.unmarshal(parse("\"a\""), String.class));
