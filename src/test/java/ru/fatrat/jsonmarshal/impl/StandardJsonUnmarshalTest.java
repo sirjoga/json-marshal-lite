@@ -16,7 +16,7 @@ public class StandardJsonUnmarshalTest {
     
     @BeforeEach
     public void beforeEach() {
-        subj = StandardJsonUnmarshal.standardObjectFieldUnmarshal();
+        subj = StandardJsonUnmarshal.standardUnmarshal();
     }
     
     private JsonValue parse(String source) {
@@ -26,6 +26,7 @@ public class StandardJsonUnmarshalTest {
 
     enum E {EA, EB, @JsonName("E_C") EC}
 
+    @JsonByFields
     static class T {
         int a;
         String [] b;

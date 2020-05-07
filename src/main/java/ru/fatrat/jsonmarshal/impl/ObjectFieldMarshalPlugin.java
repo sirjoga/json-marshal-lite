@@ -48,6 +48,6 @@ public class ObjectFieldMarshalPlugin extends JsonClassMarshalPlugin {
 
     @Override
     public boolean canHandle(@Nonnull Class<?> cls) {
-        return true;
+        return cls.getAnnotation(JsonByFields.class) != null;
     }
 }

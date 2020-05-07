@@ -30,12 +30,8 @@ public class StandardJsonMarshal extends PluginBasedJsonMarshal {
         this.plugins = plugins;
     }
 
-    @Nonnull public static JsonMarshal standardObjectFieldMarshal() {
-        return new StandardJsonMarshal(Stream.concat(COMMON.stream(), FIELD.stream()).collect(Collectors.toList()));
-    }
-
-    @Nonnull public static JsonMarshal standardObjectIntrospectorMarshal() {
-        return new StandardJsonMarshal(Stream.concat(COMMON.stream(), INTROSPECT.stream()).collect(Collectors.toList()));
+    @Nonnull public static JsonMarshal standardMarshal() {
+        return new StandardJsonMarshal(Stream.concat(Stream.concat(COMMON.stream(), FIELD.stream()), INTROSPECT.stream()).collect(Collectors.toList()));
     }
 
     @Override

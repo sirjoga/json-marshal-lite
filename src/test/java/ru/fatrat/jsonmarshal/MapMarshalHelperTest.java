@@ -25,7 +25,7 @@ class MapMarshalHelperTest {
 
     @Test
     public void testUnmarshal() {
-        JsonUnmarshal unmarshal = StandardJsonUnmarshal.standardObjectFieldUnmarshal();
+        JsonUnmarshal unmarshal = StandardJsonUnmarshal.standardUnmarshal();
         Map<String, Integer> res = MapMarshalHelper.unmarshal(parse("{'a':1, 'b':2}"), unmarshal,
                 String.class, Integer.class);
         assertEquals(res.get("a"), 1);
@@ -37,7 +37,7 @@ class MapMarshalHelperTest {
         StringWriter writer = new StringWriter();
         JsonGenerator generator = Json.createGenerator(writer);
         JsonGeneratorHelper helper = new JsonGeneratorHelper(generator);
-        JsonMarshal marshal = StandardJsonMarshal.standardObjectFieldMarshal();
+        JsonMarshal marshal = StandardJsonMarshal.standardMarshal();
         Map<String, Integer> src = new LinkedHashMap<>();
         src.put("a", 1);
         src.put("b", 2);

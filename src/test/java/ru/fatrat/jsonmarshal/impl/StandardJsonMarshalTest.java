@@ -27,7 +27,7 @@ public class StandardJsonMarshalTest {
         writer = new StringWriter();
         JsonGenerator generator = Json.createGenerator(writer);
         helper = new JsonGeneratorHelper(generator);
-        subj = StandardJsonMarshal.standardObjectFieldMarshal();
+        subj = StandardJsonMarshal.standardMarshal();
     }
 
     private void closeAndAssertResult(String expected) {
@@ -37,6 +37,7 @@ public class StandardJsonMarshalTest {
 
     enum E {EA, EB, @JsonName("E_C") EC}
 
+    @JsonByFields
     private static class A {
         int b;
         Double c;

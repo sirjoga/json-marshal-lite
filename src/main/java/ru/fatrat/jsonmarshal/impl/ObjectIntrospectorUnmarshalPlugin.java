@@ -56,5 +56,8 @@ public class ObjectIntrospectorUnmarshalPlugin extends AbstractObjectUnmarshalPl
         }
     }
 
-
+    @Override
+    protected boolean canHandle(@Nonnull Class<?> cls) {
+        return true;
+    }
 }

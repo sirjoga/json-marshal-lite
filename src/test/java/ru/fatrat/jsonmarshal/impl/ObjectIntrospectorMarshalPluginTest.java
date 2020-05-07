@@ -24,7 +24,7 @@ public class ObjectIntrospectorMarshalPluginTest {
         writer = new StringWriter();
         JsonGenerator generator = Json.createGenerator(writer);
         helper = new JsonGeneratorHelper(generator);
-        subj = StandardJsonMarshal.standardObjectIntrospectorMarshal();
+        subj = StandardJsonMarshal.standardMarshal();
     }
 
     private void closeAndAssertResult(String expected) {

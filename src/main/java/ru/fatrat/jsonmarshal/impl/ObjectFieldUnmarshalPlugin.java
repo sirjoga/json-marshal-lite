@@ -44,5 +44,8 @@ public class ObjectFieldUnmarshalPlugin extends AbstractObjectUnmarshalPlugin {
             context.popElementId();
         }
     }
+    @Override public final boolean canHandle(@Nonnull Class<?> cls) {
+        return cls.getAnnotation(JsonByFields.class) != null;
+    }
 
 }

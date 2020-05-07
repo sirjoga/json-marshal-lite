@@ -48,9 +48,6 @@ public abstract class AbstractObjectUnmarshalPlugin extends JsonClassUnmarshalPl
             @Nonnull JsonUnmarshalContext context
     );
 
-    @Override public final boolean canHandle(@Nonnull Class<?> cls) {
-        return true;
-    }
 
     @Nonnull
     private static Object createByType(@Nonnull Class<?> type) throws JsonException {

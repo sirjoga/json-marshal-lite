@@ -21,7 +21,7 @@ public class ObjectIntrospectorJsonUnmarshalTest {
     
     @BeforeEach
     public void beforeEach() {
-        subj = StandardJsonUnmarshal.standardObjectIntrospectorUnmarshal();
+        subj = StandardJsonUnmarshal.standardUnmarshal();
     }
 
     private JsonValue parse(String source) {
