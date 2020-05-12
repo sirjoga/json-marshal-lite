@@ -73,7 +73,7 @@ public interface JsonUnmarshal {
         return (T) unmarshal(source, genericType.getType(), null);
     }
 
-    @Nullable
+    @Nonnull
     default <T> T unmarshal(
             @Nonnull JsonValue source, JsonGenericType<T> genericType
     ) {
