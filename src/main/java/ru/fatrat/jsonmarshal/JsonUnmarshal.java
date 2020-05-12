@@ -41,13 +41,14 @@ public interface JsonUnmarshal {
             @Nonnull Class<T> destClass
     ) {
 
-        JsonMarshalAnnotationSource annotationSource = new JsonMarshalAnnotationSource(){
+        JsonMarshalAnnotationSource annotationSource = new JsonMarshalAnnotationSource() {
             @Nullable
             @Override
             public <AT extends Annotation> AT getAnnotation(Class<AT> cls) {
                 if (cls != JsonIgnoreGarbage.class) return null;
                 return (AT) new JsonIgnoreGarbage() {
-                    @Override public Class<? extends Annotation> annotationType() { return null; }
+                    @Override
+                    public Class<? extends Annotation> annotationType() { return null; }
                 };
             }
         };
@@ -61,6 +62,22 @@ public interface JsonUnmarshal {
             @Nonnull Class<T> destClass
     ) {
         return Optional.ofNullable(unmarshalIgnoreGarbageNullable(source, destClass)).orElseThrow(() ->
+                new JsonMarshalException("Null unmarshal result"));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Nullable
+    default <T> T unmarshalNullable(
+            @Nonnull JsonValue source, JsonGenericType<T> genericType
+    ) {
+        return (T) unmarshal(source, genericType.getType(), null);
+    }
+
+    @Nullable
+    default <T> T unmarshal(
+            @Nonnull JsonValue source, JsonGenericType<T> genericType
+    ) {
+        return Optional.ofNullable(unmarshalNullable(source, genericType)).orElseThrow(() ->
                 new JsonMarshalException("Null unmarshal result"));
     }
 

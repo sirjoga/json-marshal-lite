@@ -26,8 +26,8 @@ class MapMarshalHelperTest {
     @Test
     public void testUnmarshal() {
         JsonUnmarshal unmarshal = StandardJsonUnmarshal.standardUnmarshal();
-        Map<String, Integer> res = MapMarshalHelper.unmarshal(parse("{'a':1, 'b':2}"), unmarshal,
-                String.class, Integer.class);
+        Map<String, Integer> res = unmarshal.unmarshal(parse("{'a':1, 'b':2}"),
+                new JsonGenericType<Map<String, Integer>>() {});
         assertEquals(res.get("a"), 1);
         assertEquals(res.get("b"), 2);
     }
@@ -41,7 +41,7 @@ class MapMarshalHelperTest {
         Map<String, Integer> src = new LinkedHashMap<>();
         src.put("a", 1);
         src.put("b", 2);
-        MapMarshalHelper.marshal(src, String.class, Integer.class, marshal, helper);
+        marshal.marshal(src, new JsonGenericType<Map<String, Integer>>(){}, helper);
         generator.close();
         assertEquals(writer.toString(), "{'a':1,'b':2}".replace("'", "\""));
     }

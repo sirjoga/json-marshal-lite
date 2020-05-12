@@ -28,4 +28,15 @@ public interface JsonMarshal {
             marshal(source, source.getClass(), destination);
         }
     }
+
+    default <T> void marshal(
+            @Nullable T source, @Nonnull JsonGenericType<T> genericType, @Nonnull JsonGeneratorHelper destination
+    ) {
+        if (source == null) {
+            destination.writeNull();
+        } else {
+            marshal(source, genericType.getType(), destination);
+        }
+    }
+
 }
