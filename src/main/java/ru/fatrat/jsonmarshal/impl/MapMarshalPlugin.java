@@ -9,6 +9,9 @@ import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Marshalling plugin for {@link Map}.
+ */
 public class MapMarshalPlugin implements JsonMarshalPlugin {
     @Override
     public void marshal(@Nonnull Object source, @Nonnull Type sourceType,

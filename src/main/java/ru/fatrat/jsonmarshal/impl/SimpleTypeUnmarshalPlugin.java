@@ -11,6 +11,9 @@ import javax.json.JsonNumber;
 import javax.json.JsonString;
 import javax.json.JsonValue;
 
+/**
+ * Builtin classes unmarhsalling.
+ */
 public class SimpleTypeUnmarshalPlugin extends JsonClassUnmarshalPlugin {
     
     @Nullable

@@ -11,6 +11,9 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
+/**
+ * Marshalling plugin for {@link List}.
+ */
 public class ListMarshalPlugin implements JsonMarshalPlugin {
 
     @Override

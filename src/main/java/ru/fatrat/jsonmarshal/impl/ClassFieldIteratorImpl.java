@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Class field iteration strategy implementing.
+ */
 public class ClassFieldIteratorImpl implements ClassFieldIterator {
 
     private void addFieldsForClass(Class<?> current, List<Field> destination) {

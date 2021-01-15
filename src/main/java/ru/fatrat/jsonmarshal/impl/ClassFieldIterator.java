@@ -6,6 +6,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Iterator;
 
+/**
+ * Class field iteration strategy.
+ */
 public interface ClassFieldIterator {
     @Nonnull Iterator<Field> fields(@Nonnull Class<?> cls);
 }

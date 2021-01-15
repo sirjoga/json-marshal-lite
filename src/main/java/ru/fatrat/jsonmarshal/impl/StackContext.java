@@ -8,6 +8,9 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.stream.Collectors;
 
+/**
+ * Stack context implementor.
+ */
 public class StackContext implements JsonMarshalStackContext {
 
     private final Deque<Element> stack = new ArrayDeque<>();

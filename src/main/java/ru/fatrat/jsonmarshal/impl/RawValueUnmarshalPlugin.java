@@ -8,6 +8,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.json.JsonValue;
 
+/**
+ * Do not unmarshal anything - just pass JsonValue as result.
+ */
 public class RawValueUnmarshalPlugin extends JsonClassUnmarshalPlugin {
     @Nullable
     @Override

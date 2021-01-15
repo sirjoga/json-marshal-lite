@@ -8,6 +8,9 @@ import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.function.Supplier;
 
+/**
+ * Marshalling plugin for data classes (field accessors).
+ */
 public class ObjectFieldMarshalPlugin extends JsonClassMarshalPlugin {
 
     private final ClassFieldIterator classFieldIterator;
@@ -29,13 +32,12 @@ public class ObjectFieldMarshalPlugin extends JsonClassMarshalPlugin {
         while(fieldIterator.hasNext()) {
             Field field = fieldIterator.next();
             field.setAccessible(true);
-            Object value = ((Supplier<Object>) () -> {
-                try {
-                    return field.get(source);
-                } catch (IllegalAccessException e) {
-                    throw new JsonMarshalException("Field get value error", e);
-                }
-            }).get();
+            Object value;
+            try {
+                value = field.get(source);
+            } catch (IllegalAccessException e) {
+                throw new JsonMarshalException("Field get value error", e);
+            }
             if (value == null) continue;
             String fieldName = field.getName();
             context.pushObjectFieldElementId(fieldName);

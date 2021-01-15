@@ -10,6 +10,9 @@ import javax.json.Json;
 import javax.json.JsonValue;
 import java.lang.reflect.Type;
 
+/**
+ * Base unmarshal logic for classes without generic type info.
+ */
 public abstract class JsonClassUnmarshalPlugin implements JsonUnmarshalPlugin {
 
     @Nullable

@@ -14,6 +14,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Unmarshalling plugin for {@link List}.
+ */
 public class ListUnmarshalPlugin implements JsonUnmarshalPlugin {
 
     @Nullable

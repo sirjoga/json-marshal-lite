@@ -8,6 +8,9 @@ import javax.json.JsonValue;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+/**
+ * Unmarshalling for {@link JsonOptional}.
+ */
 public class JsonOptionalUnmarshalPlugin implements JsonUnmarshalPlugin {
 
     @Override

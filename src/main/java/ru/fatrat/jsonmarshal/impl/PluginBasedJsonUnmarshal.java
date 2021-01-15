@@ -8,6 +8,9 @@ import javax.json.JsonValue;
 import java.lang.reflect.Type;
 import java.util.Iterator;
 
+/**
+ * Plugin-based unmarshal logic.
+ */
 public abstract class PluginBasedJsonUnmarshal implements JsonUnmarshal {
     
     protected abstract @Nonnull Iterator<JsonUnmarshalPlugin> getPlugins();

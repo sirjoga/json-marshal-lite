@@ -8,6 +8,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Pre-composed plugin-based unmarshaller.
+ */
 public class StandardJsonUnmarshal extends PluginBasedJsonUnmarshal {
 
     public static final List<JsonUnmarshalPlugin> COMMON = Arrays.asList(

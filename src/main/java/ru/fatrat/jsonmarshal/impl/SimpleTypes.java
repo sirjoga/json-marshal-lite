@@ -2,6 +2,9 @@ package ru.fatrat.jsonmarshal.impl;
 
 import java.util.*;
 
+/**
+ * Builtin type service map.
+ */
 public class SimpleTypes {
     
     public final static Map<Class<?>, Class<?>> primitiveTypeMap;

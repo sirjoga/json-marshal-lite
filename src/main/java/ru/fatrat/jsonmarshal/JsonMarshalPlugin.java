@@ -4,9 +4,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.reflect.Type;
 
+/**
+ * Marshal plugin
+ */
 public interface JsonMarshalPlugin extends JsonPlugin {
+
     /**
-     * Marshal classes known to the plugin.
+     * Marshal supported types.
      *
      * @param source object to be marshalled
      * @param sourceType type of source object definition

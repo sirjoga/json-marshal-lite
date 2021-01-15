@@ -11,8 +11,12 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Unmarshalling plugin for {@link Map}.
+ */
 public class MapUnmarshalPlugin implements JsonUnmarshalPlugin {
 
     @Nullable
@@ -47,9 +51,9 @@ public class MapUnmarshalPlugin implements JsonUnmarshalPlugin {
                 JsonArray arrayItem = (JsonArray) item;
                 if (arrayItem.size() != 2)
                     throw new JsonMarshalException("JsonMap array item size must be 2");
-                JsonValue jKey = arrayItem.get(0);
+                JsonValue jKey = Objects.requireNonNull(arrayItem.get(0));
                 JsonValue jValue = arrayItem.get(1);
-                context.pushObjectFieldElementId(jKey == null ? "null" : jKey.toString());
+                context.pushObjectFieldElementId(jKey.toString());
                 Object key = jKey == JsonValue.NULL ? null : context.callback(jKey, keyType, null);
                 Object value = jValue == JsonValue.NULL ? null : context.callback(jValue, valueType, null);
                 context.popElementId();

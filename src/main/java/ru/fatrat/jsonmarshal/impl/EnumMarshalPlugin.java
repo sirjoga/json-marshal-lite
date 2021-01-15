@@ -7,6 +7,9 @@ import ru.fatrat.jsonmarshal.JsonMarshalException;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+/**
+ * Marshal enum values.
+ */
 public class EnumMarshalPlugin extends JsonClassMarshalPlugin {
 
     private final EnumStringer stringer;

@@ -8,6 +8,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Pre-composed plugin-based marshaller.
+ */
 public class StandardJsonMarshal extends PluginBasedJsonMarshal {
 
     public static final List<JsonMarshalPlugin> COMMON = Arrays.asList(

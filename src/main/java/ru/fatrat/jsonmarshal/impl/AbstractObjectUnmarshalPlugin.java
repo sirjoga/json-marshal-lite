@@ -16,12 +16,18 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+/**
+ * Common logic and helpers for any object unmarshal strategy.
+ */
 public abstract class AbstractObjectUnmarshalPlugin extends JsonClassUnmarshalPlugin {
 
     protected final boolean isFieldRequired(@Nonnull JsonMarshalAnnotationSource annotationSource) {
         return annotationSource.getAnnotation(JsonRequired.class) != null;
     }
 
+    /**
+     * Helper for custom object element names.
+     */
     @Nonnull protected final String muteName(@Nonnull String name, @Nonnull JsonMarshalAnnotationSource annotationSource) {
         JsonName jsonName = annotationSource.getAnnotation(JsonName.class);
         if (jsonName == null) return name;
@@ -51,6 +57,15 @@ public abstract class AbstractObjectUnmarshalPlugin extends JsonClassUnmarshalPl
         return result;
     }
 
+    /**
+     * Custom unmarshal strategy.
+     *
+     * @param source Json source
+     * @param destClass dest class info
+     * @param dest dest object
+     * @param handledCallback handled elements registerer
+     * @param context unmarshalling context
+     */
     protected abstract void unmarshalTo(
             @Nonnull JsonObject source,
             @Nonnull Class<?> destClass,

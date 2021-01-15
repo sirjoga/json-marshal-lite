@@ -8,6 +8,9 @@ import javax.json.JsonArray;
 import javax.json.JsonValue;
 import java.lang.reflect.Array;
 
+/**
+ * Array unmarshalling implementation.
+ */
 public class ArrayUnmarshalPlugin extends JsonClassUnmarshalPlugin {
 
     @Override

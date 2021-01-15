@@ -3,7 +3,6 @@ package ru.fatrat.jsonmarshal.impl;
 import ru.fatrat.jsonmarshal.JsonMarshalAnnotationSource;
 import ru.fatrat.jsonmarshal.JsonMarshalException;
 import ru.fatrat.jsonmarshal.JsonUnmarshalContext;
-import ru.fatrat.jsonmarshal.JsonUnmarshalPlugin;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,7 +25,12 @@ public class EnumUnmarshalPlugin extends JsonClassUnmarshalPlugin {
     @Nullable
     @Override
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public Object unmarshal(@Nonnull JsonValue source, @Nonnull Class<?> destClass, @Nullable JsonMarshalAnnotationSource annotationSource, @Nonnull JsonUnmarshalContext context) {
+    public Object unmarshal(
+            @Nonnull JsonValue source,
+            @Nonnull Class<?> destClass,
+            @Nullable JsonMarshalAnnotationSource annotationSource,
+            @Nonnull JsonUnmarshalContext context
+    ) {
         if (!destClass.isEnum()) throw new JsonMarshalException("Non-enum passed to enum unmarshaller");
         if (!(source instanceof JsonString)) {
             throw new JsonMarshalException("Non-string jsonValue passed to enum unmarshaller");

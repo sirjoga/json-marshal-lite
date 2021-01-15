@@ -9,6 +9,9 @@ import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.function.Consumer;
 
+/**
+ * Unmarshalling plugin for data classes (field accessors).
+ */
 public class ObjectFieldUnmarshalPlugin extends AbstractObjectUnmarshalPlugin {
 
     private final ClassFieldIterator classFieldIterator;

@@ -6,6 +6,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.reflect.Array;
 
+/**
+ * Array marshalling implementation.
+ */
 public class ArrayMarshalPlugin extends JsonClassMarshalPlugin {
 
     @Override

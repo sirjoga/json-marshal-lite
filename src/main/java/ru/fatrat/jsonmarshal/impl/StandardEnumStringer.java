@@ -10,6 +10,9 @@ import java.lang.reflect.Field;
 import java.util.WeakHashMap;
 import java.util.function.Function;
 
+/**
+ * Default enum stringer implementor.
+ */
 public class StandardEnumStringer implements EnumStringer{
 
     public static final Function<Field, String> STANDARD_NAME_FUNCTION = field -> {

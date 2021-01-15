@@ -5,6 +5,9 @@ import ru.fatrat.jsonmarshal.*;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+/**
+ * Builtin classes marhsalling.
+ */
 public class SimpleTypeMarshalPlugin extends JsonClassMarshalPlugin {
     
     @Override

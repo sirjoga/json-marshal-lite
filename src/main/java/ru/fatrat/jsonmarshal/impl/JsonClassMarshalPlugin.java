@@ -9,6 +9,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.reflect.Type;
 
+/**
+ * Base marshal logic for classes without generic type info.
+ */
 public abstract class JsonClassMarshalPlugin implements JsonMarshalPlugin {
 
     @Override

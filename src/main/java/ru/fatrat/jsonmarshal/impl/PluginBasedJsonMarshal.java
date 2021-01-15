@@ -7,6 +7,9 @@ import javax.annotation.Nullable;
 import java.lang.reflect.Type;
 import java.util.Iterator;
 
+/**
+ * Plugin-based marshal logic.
+ */
 public abstract class PluginBasedJsonMarshal implements JsonMarshal {
     
     protected abstract @Nonnull Iterator<JsonMarshalPlugin> getPlugins();

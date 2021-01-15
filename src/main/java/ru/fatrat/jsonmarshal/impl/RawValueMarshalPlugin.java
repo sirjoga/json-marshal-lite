@@ -7,6 +7,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.json.JsonValue;
 
+/**
+ * Passing raw JsonValue as marshalling result.
+ */
 public class RawValueMarshalPlugin extends JsonClassMarshalPlugin {
     @Override public void marshal(@Nonnull Object source, @Nonnull Class<?> sourceClass, @Nullable JsonMarshalAnnotationSource annotationSource, @Nonnull JsonMarshalContext context) {
         context.getGeneratorHelper().writeValue((JsonValue) source);

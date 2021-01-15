@@ -8,6 +8,9 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Optional;
 
+/**
+ * Marshalling for {@link JsonOptional}.
+ */
 public class JsonOptionalMarshalPlugin implements JsonMarshalPlugin {
 
     @Override

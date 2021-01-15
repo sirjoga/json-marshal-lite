@@ -12,6 +12,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
+/**
+ *  Marshalling plugin for data classes (introspector accessors).
+ */
 public class ObjectIntrospectorMarshalPlugin extends JsonClassMarshalPlugin {
 
     @Override public void marshal(

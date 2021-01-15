@@ -15,6 +15,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.function.Consumer;
 
+/**
+ *  Unmarshalling plugin for data classes (introspector accessors).
+ */
 public class ObjectIntrospectorUnmarshalPlugin extends AbstractObjectUnmarshalPlugin {
 
     @Override
