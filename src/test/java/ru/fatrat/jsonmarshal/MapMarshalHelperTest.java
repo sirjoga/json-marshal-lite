@@ -26,8 +26,8 @@ class MapMarshalHelperTest {
     @Test
     public void testUnmarshal() {
         JsonUnmarshal unmarshal = StandardJsonUnmarshal.standardUnmarshal();
-        Map<String, Integer> res = unmarshal.unmarshal(parse("{'a':1, 'b':2}"),
-                new JsonGenericType<Map<String, Integer>>() {});
+        Map<String, ? extends Integer> res = unmarshal.unmarshal(parse("{'a':1, 'b':2}"),
+                new JsonGenericType<Map<String, ? extends Integer>>() {});
         assertEquals(res.get("a"), 1);
         assertEquals(res.get("b"), 2);
     }

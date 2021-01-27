@@ -17,6 +17,7 @@ public class StandardJsonUnmarshal extends PluginBasedJsonUnmarshal {
             new SimpleTypeUnmarshalPlugin(), new JsonOptionalUnmarshalPlugin(), new ArrayUnmarshalPlugin(),
             new EnumUnmarshalPlugin(new StandardEnumStringer(StandardEnumStringer.STANDARD_NAME_FUNCTION)),
             new MapUnmarshalPlugin(),
+            new WildcardUnmarshalPlugin(),
             new ListUnmarshalPlugin(),
             new RawValueUnmarshalPlugin()
     );

@@ -10,7 +10,7 @@
 
     <groupId>ru.fatrat.jsonmarshal</groupId>
     <artifactId>json-marshal-lite</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 
     <name>json-marshal-lite</name>
     <description>Liteweight JSON marshalling library</description>
