@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 public class StandardJsonUnmarshal extends PluginBasedJsonUnmarshal {
 
     public static final List<JsonUnmarshalPlugin> COMMON = Arrays.asList(
+            new CustomUnmarshalPlugin(),
             new SimpleTypeUnmarshalPlugin(), new JsonOptionalUnmarshalPlugin(), new ArrayUnmarshalPlugin(),
             new EnumUnmarshalPlugin(new StandardEnumStringer(StandardEnumStringer.STANDARD_NAME_FUNCTION)),
             new MapUnmarshalPlugin(),

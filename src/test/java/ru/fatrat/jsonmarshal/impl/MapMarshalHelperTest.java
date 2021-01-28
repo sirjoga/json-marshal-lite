@@ -1,6 +1,10 @@
-package ru.fatrat.jsonmarshal;
+package ru.fatrat.jsonmarshal.impl;
 
 import org.junit.jupiter.api.Test;
+import ru.fatrat.jsonmarshal.JsonGeneratorHelper;
+import ru.fatrat.jsonmarshal.JsonGenericType;
+import ru.fatrat.jsonmarshal.JsonMarshal;
+import ru.fatrat.jsonmarshal.JsonUnmarshal;
 import ru.fatrat.jsonmarshal.impl.StandardJsonMarshal;
 import ru.fatrat.jsonmarshal.impl.StandardJsonUnmarshal;
 
