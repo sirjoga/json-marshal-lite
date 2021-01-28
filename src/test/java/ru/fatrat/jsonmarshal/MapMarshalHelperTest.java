@@ -41,7 +41,7 @@ class MapMarshalHelperTest {
         Map<String, Integer> src = new LinkedHashMap<>();
         src.put("a", 1);
         src.put("b", 2);
-        marshal.marshal(src, new JsonGenericType<Map<String, Integer>>(){}, helper);
+        marshal.marshal(src, new JsonGenericType<Map<String, ? extends Integer>>(){}, helper);
         generator.close();
         assertEquals(writer.toString(), "{'a':1,'b':2}".replace("'", "\""));
     }

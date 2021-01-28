@@ -18,6 +18,7 @@ public class StandardJsonMarshal extends PluginBasedJsonMarshal {
             new SimpleTypeMarshalPlugin(), new ArrayMarshalPlugin(), new JsonOptionalMarshalPlugin(),
             new EnumMarshalPlugin(new StandardEnumStringer(StandardEnumStringer.STANDARD_NAME_FUNCTION)),
             new MapMarshalPlugin(),
+            new WildcardMarshalPlugin(),
             new ListMarshalPlugin(),
             new RawValueMarshalPlugin()
     );
