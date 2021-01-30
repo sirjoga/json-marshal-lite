@@ -57,7 +57,7 @@ class MethodAutoMarshalTest {
         AutoMarshalInstance instance = subj.create(testObj, findMethod("noArgNoRes"));
         assertFalse(instance.hasResult());
         assertFalse(instance.hasArgument());
-        ResultMarshaller res = instance.process(null);
+        assertNull(instance.process(null));
         verify(testObj, times(1)).noArgNoRes();
         verifyNoMoreInteractions(testObj);
     }
@@ -83,8 +83,8 @@ class MethodAutoMarshalTest {
         assertFalse(instance.hasResult());
         assertTrue(instance.hasArgument());
         JsonValue arg = mock(JsonValue.class);
-        when(unmarshal.unmarshal(eq(arg), eq(int.class), any(JsonMarshalAnnotationSource.class))).thenReturn((int)1);
-        ResultMarshaller res = instance.process(() -> arg);
+        when(unmarshal.unmarshal(eq(arg), eq(int.class), any(JsonMarshalAnnotationSource.class))).thenReturn(1);
+        assertNull(instance.process(() -> arg));
         verify(testObj, times(1)).intArgNoRes(eq(1));
         verifyNoMoreInteractions(testObj);
         verifyNoInteractions(marshal);
