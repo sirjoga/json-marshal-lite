@@ -15,6 +15,9 @@ import java.lang.reflect.Type;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+/**
+ * Wrap argument unmarshalling and result marshalling for method.
+ */
 public class MethodAutoMarshal {
 
     private final JsonUnmarshal unmarshaller;
@@ -25,6 +28,13 @@ public class MethodAutoMarshal {
         this.unmarshaller = unmarshaller;
     }
 
+    /**
+     * Create automarshal instance.
+     *
+     * @param object instance with payload method.
+     * @param method payload method.
+     * @return marshal/unmarshal wrapper for instance method.
+     */
     public AutoMarshalInstance create(Object object, Method method) {
         return new AutoMarshalInstance() {
 
